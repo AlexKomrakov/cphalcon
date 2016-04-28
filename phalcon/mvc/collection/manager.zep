@@ -182,6 +182,22 @@ class Manager implements InjectionAwareInterface, EventsAwareInterface
 	}
 
 	/**
+     * Gets a connection service for a specific model
+     */
+    public function getConnectionService(<CollectionInterface> model) -> string
+    {
+        var service, entityName;
+
+        let service = "mongo";
+        let entityName = get_class(model);
+        if isset this->_connectionServices[entityName] {
+            let service = this->_connectionServices[entityName];
+        }
+
+        return service;
+    }
+
+	/**
 	 * Sets whether a model must use implicit objects ids
 	 */
 	public function useImplicitObjectIds(<CollectionInterface> model, boolean useImplicitObjectIds) -> void
